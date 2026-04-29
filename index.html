@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>NOOR TRAVELS - Mirbat Branch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #eef2f7; padding: 25px; font-family: 'Poppins', sans-serif; }
+        .dashboard { max-width: 1400px; margin: 0 auto; }
+        
+        .main-header {
+            background: linear-gradient(135deg, #0a2b3e, #15556b);
+            border-radius: 24px;
+            padding: 20px 30px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        .company-left { text-align: left; }
+        .company-left h1 { font-size: 26px; font-weight: 700; background: linear-gradient(135deg, #FFD700, #FFA500); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .company-left .tagline { font-size: 12px; color: #b0d4e8; margin-top: 5px; }
+        .contact-info { margin-top: 8px; font-size: 12px; color: #cbd5e1; }
+        .contact-info span { margin-right: 20px; display: inline-block; }
+        .logo-preview { width: 65px; height: 65px; background: white; border-radius: 14px; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 5px; }
+        .logo-preview img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        
+        .search-section {
+            background: white;
+            border-radius: 20px;
+            padding: 18px 22px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: flex-end;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+        .search-group { display: flex; flex-direction: column; gap: 6px; }
+        .search-group label { font-size: 12px; font-weight: 600; color: #2c3e50; }
+        .search-group input { padding: 10px 16px; border: 1px solid #ddd; border-radius: 30px; width: 220px; font-family: 'Poppins', sans-serif; }
+        .search-group button { background: #15556b; padding: 10px 24px; border-radius: 30px; margin: 0; cursor: pointer; border: none; color: white; font-weight: 600; }
+        .reset-btn { background: #6c757d; }
+        
+        .form-card { background: white; border-radius: 28px; padding: 28px; margin-bottom: 30px; box-shadow: 0 8px 25px rgba(0,0,0,0.08); }
+        .form-title { background: linear-gradient(135deg, #d4a574, #b8772e); color: white; padding: 8px 24px; border-radius: 40px; margin-bottom: 25px; font-size: 18px; font-weight: 600; display: inline-block; }
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .input-field { margin-bottom: 8px; }
+        .input-field label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 12px; color: #2c3e50; }
+        .input-field .required { color: #c0392b; }
+        .input-field input, .input-field select, .input-field textarea { width: 100%; padding: 10px 15px; border: 1px solid #e2e8f0; border-radius: 14px; font-family: 'Poppins', sans-serif; font-size: 13px; }
+        .input-field input:focus, .input-field select:focus { border-color: #d4a574; outline: none; }
+        .error-border { border: 2px solid #c0392b !important; background: #fff5f5; }
+        button { background: #15556b; color: white; border: none; padding: 12px 28px; border-radius: 40px; cursor: pointer; font-weight: 600; margin-top: 15px; font-family: 'Poppins', sans-serif; }
+        .history-list { margin-top: 30px; }
+        .history-item { background: white; border-radius: 18px; padding: 15px; margin-bottom: 12px; border-left: 5px solid #d4a574; }
+        
+        @media print { body * { visibility: hidden; } .print-area, .print-area * { visibility: visible; } .print-area { position: absolute; top: 0; left: 0; width: 100%; } @page { size: A4; margin: 0.3cm; } }
+        .print-area { background: white; font-family: 'Poppins', sans-serif; }
+        .a4-page { width: 210mm; min-height: 297mm; padding: 5mm; margin: 0 auto; background: white; }
+        .copy-section { border: 1.5px dashed #c6904a; padding: 10px; margin-bottom: 8px; background: white; }
+        .copy-label-right { text-align: right; font-weight: 700; font-size: 10px; color: #c6904a; margin-bottom: 5px; }
+        .logo-top-left { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; border-bottom: 2px solid #e0c3a0; padding-bottom: 6px; }
+        .logo-top-left img { max-height: 180px; max-width: 180px; object-fit: contain; }
+        .office-name-large { font-size: 24px; font-weight: 800; color: #1a4a6f; }
+        .office-address, .office-phone { font-size: 12px; color: #4a5568; margin-top: 3px; }
+        .serial-number { text-align: right; font-size: 11px; font-weight: bold; color: #c6904a; margin-bottom: 5px; }
+        .print-header-center { text-align: center; margin: 6px 0; }
+        .print-header-center h2 { font-size: 16px; color: #1a5276; }
+        .info-box { border: 1px solid #e2c3a0; margin-bottom: 8px; border-radius: 6px; overflow: hidden; }
+        .box-title-print { background: #d4a574; padding: 4px 10px; font-weight: 700; font-size: 11px; color: white; }
+        .box-content { padding: 6px; }
+        .info-row { display: flex; margin-bottom: 4px; font-size: 13px; }
+        .info-label { width: 130px; font-weight: 700; font-size: 13px; }
+        .info-value { flex: 1; border-bottom: 0.5px dotted #ddd; padding-left: 5px; font-size: 13px; }
+        .print-sign { display: flex; justify-content: flex-end; margin-top: 10px; }
+        .sign-line { width: 150px; text-align: center; border-top: 1px solid #333; padding-top: 4px; font-size: 9px; }
+        .cut-line { text-align: center; border-top: 1.5px dashed #b8772e; margin: 5px 0; }
+        @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<div class="dashboard">
+    <div class="main-header">
+        <div class="company-left">
+            <h1>NOOR TRAVELS & TOURISM</h1>
+            <div class="tagline">Your Trusted Travel Partner Since 2015</div>
+            <div class="contact-info">
+                <span>📍 Bangali Market Mirbat, Sultanate of Oman</span>
+                <span>📞 +968 99083850</span>
+                <span>✉ noortravelsalalah@gmail.com</span>
+            </div>
+        </div>
+        <div class="logo-preview">
+            <img id="permanentLogoImg" src="https://i.ibb.co/HfrX9VNr/file-00000000fda472469bf9cc3184ae00e3.png" alt="Logo">
+        </div>
+    </div>
+
+    <div class="search-section">
+        <div class="search-group"><label>🔍 Search by Customer Name</label><input type="text" id="searchByName" placeholder="Enter customer name..."></div>
+        <div class="search-group"><label>📅 Search by Flight Date</label><input type="date" id="searchByDate"></div>
+        <div class="search-group"><button onclick="performSearch()">🔎 SEARCH NOW</button></div>
+        <div class="search-group"><button onclick="resetSearch()" class="reset-btn">🔄 RESET</button></div>
+    </div>
+
+    <div class="form-card">
+        <div class="form-title">✈️ TICKET BOOKING FORM</div>
+        <div class="two-col">
+            <div class="input-field"><label><span class="required">*</span> Customer Name</label><input type="text" id="tName" placeholder="Full Name"></div>
+            <div class="input-field"><label><span class="required">*</span> Mobile Number</label><input type="tel" id="tMobile" placeholder="12345678" onkeypress="return event.charCode >= 48 && event.charCode <= 57"></div>
+            <div class="input-field"><label><span class="required">*</span> PNR Number</label><input type="text" id="tPNR" placeholder="PNR: ABC123"></div>
+            <div class="input-field"><label><span class="required">*</span> Travel Sector</label><input type="text" id="tSector" placeholder="e.g., Salalah → Dhaka"></div>
+            <div class="input-field"><label>Airlines Name</label><input type="text" id="tAirlines" placeholder="e.g., Salam Air, Oman Air"></div>
+            <div class="input-field"><label><span class="required">*</span> Booking Date</label><input type="date" id="tBookDate"></div>
+            <div class="input-field"><label><span class="required">*</span> Flight Date</label><input type="date" id="tFlightDate"></div>
+            <div class="input-field"><label><span class="required">*</span> Total Amount (OMR)</label><input type="number" id="tTotal" placeholder="Total" step="any"></div>
+            <div class="input-field"><label><span class="required">*</span> Paid Amount (OMR)</label><input type="number" id="tPaid" placeholder="Paid" step="any"></div>
+            <div class="input-field"><label>Payment Method</label><select id="tMethod"><option>Cash</option><option>Transfer</option></select></div>
+        </div>
+        <button onclick="saveTicket()">💾 SAVE TICKET</button>
+    </div>
+
+    <div class="form-card">
+        <div class="form-title">🛂 PASSPORT APPLICATION</div>
+        <div class="two-col">
+            <div class="input-field"><label><span class="required">*</span> Application Date</label><input type="date" id="pDate"></div>
+            <div class="input-field"><label>Bill Amount (OMR)</label><input type="number" id="pBill" placeholder="Bill Amount" step="any"></div>
+            <div class="input-field"><label><span class="required">*</span> Passport Number</label><input type="text" id="pPassportNo" placeholder="A1234567"></div>
+            <div class="input-field"><label><span class="required">*</span> Oman Number (Only Numbers)</label><input type="tel" id="pOman" placeholder="91234567" onkeypress="return event.charCode >= 48 && event.charCode <= 57"></div>
+            <div class="input-field"><label><span class="required">*</span> Bangladesh Number (Only Numbers)</label><input type="tel" id="pBd" placeholder="1712345678" onkeypress="return event.charCode >= 48 && event.charCode <= 57"></div>
+            <div class="input-field" style="grid-column: span 2;"><label>Notes</label><textarea id="pNotes" rows="2"></textarea></div>
+        </div>
+        <button onclick="savePassport()">💾 SAVE PASSPORT</button>
+    </div>
+
+    <div class="history-list">
+        <h3 style="margin-bottom:12px;">📋 TICKET HISTORY (<span id="ticketCount">0</span> records)</h3>
+        <div id="ticketHistory"></div>
+        <h3 style="margin:25px 0 12px;">📘 PASSPORT HISTORY (<span id="passportCount">0</span> records)</h3>
+        <div id="passportHistory"></div>
+    </div>
+</div>
+
+<script>
+    const PERMANENT_LOGO_URL = "https://i.ibb.co/HfrX9VNr/file-00000000fda472469bf9cc3184ae00e3.png";
+    let tickets = JSON.parse(localStorage.getItem('noor_tickets_mirbat') || '[]');
+    let passports = JSON.parse(localStorage.getItem('noor_passports_mirbat') || '[]');
+
+    function generateTicketSerial() {
+        let maxNum = 0;
+        for (let i = 0; i < tickets.length; i++) {
+            let serial = tickets[i].serialNumber;
+            if (serial && serial.startsWith('NTS-')) {
+                let num = parseInt(serial.split('-')[1]);
+                if (!isNaN(num) && num > maxNum) maxNum = num;
+            }
+        }
+        let newNum = maxNum + 1;
+        return "NTS-" + String(newNum).padStart(3, '0');
+    }
+
+    function generatePassportSerial() {
+        let maxNum = 0;
+        for (let i = 0; i < passports.length; i++) {
+            let serial = passports[i].serialNumber;
+            if (serial && serial.startsWith('PPS-')) {
+                let num = parseInt(serial.split('-')[1]);
+                if (!isNaN(num) && num > maxNum) maxNum = num;
+            }
+        }
+        let newNum = maxNum + 1;
+        return "PPS-" + String(newNum).padStart(3, '0');
+    }
+
+    function saveTicket() {
+        let name = document.getElementById('tName').value.trim();
+        let mobile = document.getElementById('tMobile').value.trim();
+        let pnr = document.getElementById('tPNR').value.trim();
+        let sector = document.getElementById('tSector').value.trim();
+        let airlines = document.getElementById('tAirlines').value.trim();
+        let bookDate = document.getElementById('tBookDate').value;
+        let flightDate = document.getElementById('tFlightDate').value;
+        let total = parseFloat(document.getElementById('tTotal').value);
+        let paid = parseFloat(document.getElementById('tPaid').value);
+        let method = document.getElementById('tMethod').value;
+        
+        clearTicketErrors();
+        
+        let errors = [];
+        if(!name) { errors.push("Customer Name"); document.getElementById('tName').classList.add('error-border'); }
+        if(!mobile) { errors.push("Mobile Number"); document.getElementById('tMobile').classList.add('error-border'); }
+        else if(!/^\d+$/.test(mobile)) { errors.push("Mobile Number (Only digits allowed)"); document.getElementById('tMobile').classList.add('error-border'); }
+        if(!pnr) { errors.push("PNR Number"); document.getElementById('tPNR').classList.add('error-border'); }
+        if(!sector) { errors.push("Travel Sector"); document.getElementById('tSector').classList.add('error-border'); }
+        if(!bookDate) { errors.push("Booking Date"); document.getElementById('tBookDate').classList.add('error-border'); }
+        if(!flightDate) { errors.push("Flight Date"); document.getElementById('tFlightDate').classList.add('error-border'); }
+        if(isNaN(total) || total === 0) { errors.push("Total Amount (must be greater than 0)"); document.getElementById('tTotal').classList.add('error-border'); }
+        if(isNaN(paid) || paid === 0) { errors.push("Paid Amount (must be greater than 0)"); document.getElementById('tPaid').classList.add('error-border'); }
+        
+        if(errors.length > 0) {
+            alert("❌ Please fill required fields:\n- " + errors.join("\n- "));
+            return;
+        }
+        
+        let formattedMobile = '+968 ' + mobile;
+        let serialNumber = generateTicketSerial();
+        
+        let ticket = { id: Date.now(), serialNumber, name, pnr, mobile: formattedMobile, sector, airlines: airlines || 'N/A', bookDate, flightDate, total, paid, method, due: (total-paid).toFixed(2) };
+        tickets.push(ticket);
+        localStorage.setItem('noor_tickets_mirbat', JSON.stringify(tickets));
+        renderTickets(tickets);
+        clearTicketForm();
+        alert("✓ Ticket saved! Serial: " + serialNumber);
+    }
+    
+    function clearTicketErrors() {
+        ['tName','tMobile','tPNR','tSector','tBookDate','tFlightDate','tTotal','tPaid'].forEach(id => {
+            let el = document.getElementById(id);
+            if(el) el.classList.remove('error-border');
+        });
+    }
+    
+    function clearTicketForm() {
+        document.getElementById('tName').value = '';
+        document.getElementById('tMobile').value = '';
+        document.getElementById('tPNR').value = '';
+        document.getElementById('tSector').value = '';
+        document.getElementById('tAirlines').value = '';
+        document.getElementById('tTotal').value = '';
+        document.getElementById('tPaid').value = '';
+        let today = new Date().toISOString().split('T')[0];
+        document.getElementById('tBookDate').value = today;
+        document.getElementById('tFlightDate').value = today;
+        clearTicketErrors();
+    }
+    
+    function deleteTicket(id) {
+        if(confirm("Delete this ticket?")) { 
+            tickets = tickets.filter(t => t.id != id); 
+            localStorage.setItem('noor_tickets_mirbat', JSON.stringify(tickets)); 
+            renderTickets(tickets); 
+        }
+    }
+    
+    function savePassport() {
+        let date = document.getElementById('pDate').value;
+        let passportNo = document.getElementById('pPassportNo').value.trim();
+        let oman = document.getElementById('pOman').value.trim();
+        let bd = document.getElementById('pBd').value.trim();
+        let bill = parseFloat(document.getElementById('pBill').value) || 0;
+        let notes = document.getElementById('pNotes').value;
+        
+        clearPassportErrors();
+        
+        let errors = [];
+        if(!date) { errors.push("Application Date"); document.getElementById('pDate').classList.add('error-border'); }
+        if(!passportNo) { errors.push("Passport Number"); document.getElementById('pPassportNo').classList.add('error-border'); }
+        if(!oman) { errors.push("Oman Number"); document.getElementById('pOman').classList.add('error-border'); }
+        else if(!/^\d+$/.test(oman)) { errors.push("Oman Number (Only digits allowed)"); document.getElementById('pOman').classList.add('error-border'); }
+        if(!bd) { errors.push("Bangladesh Number"); document.getElementById('pBd').classList.add('error-border'); }
+        else if(!/^\d+$/.test(bd)) { errors.push("Bangladesh Number (Only digits allowed)"); document.getElementById('pBd').classList.add('error-border'); }
+        
+        if(errors.length > 0) {
+            alert("❌ Please fill required fields:\n- " + errors.join("\n- "));
+            return;
+        }
+        
+        let formattedOman = '+968 ' + oman;
+        let formattedBd = '+88 ' + bd;
+        let serialNumber = generatePassportSerial();
+        
+        let passport = { id: Date.now(), serialNumber, date, bill, passportNo, oman: formattedOman, bd: formattedBd, notes };
+        passports.push(passport);
+        localStorage.setItem('noor_passports_mirbat', JSON.stringify(passports));
+        renderPassports();
+        clearPassportForm();
+        alert("✓ Passport saved! Serial: " + serialNumber);
+    }
+    
+    function clearPassportErrors() {
+        ['pDate','pPassportNo','pOman','pBd'].forEach(id => {
+            let el = document.getElementById(id);
+            if(el) el.classList.remove('error-border');
+        });
+    }
+    
+    function clearPassportForm() {
+        document.getElementById('pDate').value = '';
+        document.getElementById('pBill').value = '';
+        document.getElementById('pPassportNo').value = '';
+        document.getElementById('pOman').value = '';
+        document.getElementById('pBd').value = '';
+        document.getElementById('pNotes').value = '';
+        let today = new Date().toISOString().split('T')[0];
+        document.getElementById('pDate').value = today;
+        clearPassportErrors();
+    }
+    
+    function deletePassport(id) {
+        if(confirm("Delete this passport record?")) { 
+            passports = passports.filter(p => p.id != id); 
+            localStorage.setItem('noor_passports_mirbat', JSON.stringify(passports)); 
+            renderPassports(); 
+        }
+    }
+    
+    function performSearch() {
+        let searchName = document.getElementById('searchByName').value.toLowerCase().trim();
+        let searchDate = document.getElementById('searchByDate').value;
+        let filtered = [...tickets];
+        if (searchName) filtered = filtered.filter(t => t.name.toLowerCase().includes(searchName));
+        if (searchDate) filtered = filtered.filter(t => t.flightDate === searchDate);
+        renderTickets(filtered);
+        let msg = [];
+        if(searchName) msg.push(`Name: "${searchName}"`);
+        if(searchDate) msg.push(`Date: ${searchDate}`);
+        if(msg.length) alert(`🔍 Showing ${filtered.length} results for ${msg.join(' and ')}`);
+        else alert("Please enter name or select date to search");
+    }
+    
+    function resetSearch() {
+        document.getElementById('searchByName').value = '';
+        document.getElementById('searchByDate').value = '';
+        renderTickets(tickets);
+        alert("✓ Showing all tickets");
+    }
+    
+    function renderTickets(list) {
+        let container = document.getElementById('ticketHistory');
+        let data = list || tickets;
+        document.getElementById('ticketCount').innerText = data.length;
+        if(!data.length) { container.innerHTML = '<div style="background:white; padding:20px; border-radius:16px; text-align:center;">📭 No tickets found</div>'; return; }
+        container.innerHTML = data.map(t => `
+            <div class="history-item">
+                <div style="display:flex; justify-content:space-between; flex-wrap:wrap;">
+                    <strong>✈️ ${escape(t.name)} | ${escape(t.serialNumber)}</strong>
+                    <span style="color:${t.due>0?'#c0392b':'#27ae60'}; font-weight:600;">Due: ${t.due} OMR</span>
+                </div>
+                <div style="font-size:12px; margin-top:5px;">📞 ${escape(t.mobile)} | PNR: ${escape(t.pnr)} | 🛫 ${escape(t.sector)}</div>
+                <div style="font-size:11px; color:#666;">📅 Flight: ${t.flightDate} | ✈️ ${escape(t.airlines)}</div>
+                <div style="margin-top:10px;"><button onclick='printTicket(${t.id})' style="padding:5px 18px; font-size:11px; margin-right:8px;">🖨️ PRINT</button><button onclick='deleteTicket(${t.id})' style="background:#c0392b; padding:5px 18px; font-size:11px;">DELETE</button></div>
+            </div>
+        `).join('');
+    }
+    
+    function renderPassports() {
+        let container = document.getElementById('passportHistory');
+        document.getElementById('passportCount').innerText = passports.length;
+        if(!passports.length) { container.innerHTML = '<div style="background:white; padding:20px; border-radius:16px; text-align:center;">📭 No passport records</div>'; return; }
+        container.innerHTML = passports.map(p => `
+            <div class="history-item">
+                <div><strong>📅 ${p.date} | ${escape(p.serialNumber)}</strong> | Bill: ${p.bill} OMR</div>
+                <div style="font-size:12px;">🛂 Passport: ${escape(p.passportNo)} | 🇴🇲 ${escape(p.oman)} | 🇧🇩 ${escape(p.bd)}</div>
+                <div style="margin-top:10px;"><button onclick='printPassportFull(${p.id})' style="padding:5px 18px; font-size:11px;">PRINT</button><button onclick='deletePassport(${p.id})' style="background:#c0392b; padding:5px 18px; font-size:11px;">DELETE</button></div>
+            </div>
+        `).join('');
+    }
+    
+    function printTicket(id) {
+        let t = tickets.find(t => t.id == id);
+        if(!t) return;
+        let now = new Date().toLocaleString();
+        let logoHtml = `<img src="${PERMANENT_LOGO_URL}" alt="Logo" style="max-height:180px; max-width:180px;">`;
+        
+        let html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>NOOR TICKET</title><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"><style>
+            * { margin:0; padding:0; box-sizing:border-box; }
+            body { background:white; font-family:'Poppins',sans-serif; margin:0; padding:0; }
+            .a4-page { width:210mm; min-height:297mm; padding:5mm; margin:0 auto; background:white; }
+            .copy-section { border:1.5px dashed #c6904a; padding:10px; margin-bottom:8px; background:white; }
+            .copy-label-right { text-align:right; font-weight:700; font-size:10px; color:#c6904a; }
+            .logo-top-left { display:flex; align-items:center; gap:12px; margin-bottom:8px; border-bottom:2px solid #e0c3a0; padding-bottom:6px; }
+            .logo-top-left img { max-height:180px; max-width:180px; object-fit:contain; }
+            .office-name-large { font-size:24px; font-weight:800; color:#1a4a6f; }
+            .office-address, .office-phone { font-size:12px; color:#4a5568; }
+            .serial-number { text-align:right; font-size:11px; font-weight:bold; color:#c6904a; margin-bottom:5px; }
+            .print-header-center { text-align:center; margin:6px 0; }
+            .print-header-center h2 { font-size:16px; color:#1a5276; }
+            .info-box { border:1px solid #e2c3a0; margin-bottom:8px; border-radius:6px; overflow:hidden; }
+            .box-title-print { background:#d4a574; padding:4px 10px; font-weight:700; font-size:11px; color:white; }
+            .box-content { padding:6px; }
+            .info-row { display:flex; margin-bottom:4px; font-size:13px; }
+            .info-label { width:130px; font-weight:700; font-size:13px; }
+            .info-value { flex:1; border-bottom:0.5px dotted #ddd; padding-left:5px; font-size:13px; }
+            .print-sign { display:flex; justify-content:flex-end; margin-top:10px; }
+            .sign-line { width:150px; text-align:center; border-top:1px solid #333; padding-top:4px; font-size:9px; }
+            .cut-line { text-align:center; border-top:1.5px dashed #b8772e; margin:5px 0; }
+            @media print { @page { size: A4; margin: 0.2cm; } body { margin:0; } }
+        </style></head><body><div class="a4-page">
+            <div class="copy-section"><div class="copy-label-right">🏠 CUSTOMER COPY</div>
+                <div class="serial-number">${t.serialNumber}</div>
+                <div class="logo-top-left">${logoHtml}<div><div class="office-name-large">NOOR TRAVELS & TOURISM</div><div class="office-address">📍 Bangali Market Mirbat, Sultanate of Oman</div><div class="office-phone">📞 +968 99083850</div></div></div>
+                <div class="print-header-center"><h2>AIR TICKET VOUCHER</h2></div>
+                <div class="info-box"><div class="box-title-print">📋 CUSTOMER DETAILS</div><div class="box-content">
+                    <div class="info-row"><div class="info-label">Name:</div><div class="info-value">${escape(t.name)}</div></div>
+                    <div class="info-row"><div class="info-label">Mobile:</div><div class="info-value">${escape(t.mobile)}</div></div>
+                    <div class="info-row"><div class="info-label">PNR Number:</div><div class="info-value">${escape(t.pnr)}</div></div>
+                </div></div>
+                <div class="info-box"><div class="box-title-print">✈️ FLIGHT DETAILS</div><div class="box-content">
+                    <div class="info-row"><div class="info-label">Booking Date:</div><div class="info-value">${t.bookDate}</div></div>
+                    <div class="info-row"><div class="info-label">Flight Date:</div><div class="info-value">${t.flightDate}</div></div>
+                    <div class="info-row"><div class="info-label">Route:</div><div class="info-value">${escape(t.sector)}</div></div>
+                    <div class="info-row"><div class="info-label">Airlines:</div><div class="info-value">${escape(t.airlines)}</div></div>
+                </div></div>
+                <div class="info-box"><div class="box-title-print">💰 PAYMENT</div><div class="box-content">
+                    <div class="info-row"><div class="info-label">Total:</div><div class="info-value">${t.total} OMR</div></div>
+                    <div class="info-row"><div class="info-label">Paid:</div><div class="info-value">${t.paid} OMR</div></div>
+                    <div class="info-row"><div class="info-label">Due:</div><div class="info-value">${t.due} OMR</div></div>
+                    <div class="info-row"><div class="info-label">Method:</div><div class="info-value">${t.method}</div></div>
+                </div></div>
+                <div class="print-sign"><div class="sign-line">Signature</div></div>
+                <div style="text-align:center; font-size:8px;">Print: ${now}</div>
+            </div>
+            <div class="cut-line"></div>
+            <div class="copy-section"><div class="copy-label-right">🏢 OFFICE COPY</div>
+                <div class="serial-number">${t.serialNumber}</div>
+                <div class="info-box"><div class="box-title-print">CUSTOMER INFO</div><div class="box-content">
+                    <div class="info-row"><div class="info-label">Name:</div><div class="info-value">${escape(t.name)}</div></div>
+                    <div class="info-row"><div class="info-label">Mobile:</div><div class="info-value">${escape(t.mobile)}</div></div>
+                    <div class="info-row"><div class="info-label">PNR:</div><div class="info-value">${escape(t.pnr)}</div></div>
+                    <div class="info-row"><div class="info-label">Flight Date:</div><div class="info-value">${t.flightDate}</div></div>
+                    <div class="info-row"><div class="info-label">Total:</div><div class="info-value">${t.total} OMR</div></div>
+                    <div class="info-row"><div class="info-label">Paid:</div><div class="info-value">${t.paid} OMR</div></div>
+                    <div class="info-row"><div class="info-label">Due:</div><div class="info-value">${t.due} OMR</div></div>
+                    <div class="info-row"><div class="info-label">Method:</div><div class="info-value">${t.method}</div></div>
+                </div></div>
+                <div class="print-sign"><div class="sign-line">Signature</div></div>
+            </div>
+        </div></body></html>`;
+        let win = window.open('','_blank'); win.document.write(html); win.document.close(); win.print();
+    }
+    
+    function printPassportFull(id) {
+        let p = passports.find(p => p.id == id);
+        if(!p) return;
+        let now = new Date().toLocaleString();
+        let logoHtml = `<img src="${PERMANENT_LOGO_URL}" alt="Logo" style="max-height:180px; max-width:180px;">`;
+        
+        let html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Passport Print</title><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"><style>
+            * { margin:0; padding:0; box-sizing:border-box; }
+            body { background:white; font-family:'Poppins',sans-serif; margin:0; padding:0; }
+            .a4-page { width:210mm; min-height:297mm; padding:5mm; margin:0 auto; background:white; }
+            .copy-section { border:1.5px dashed #c6904a; padding:10px; margin-bottom:8px; background:white; }
+            .copy-label-right { text-align:right; font-weight:700; font-size:10px; color:#c6904a; }
+            .logo-top-left { display:flex; align-items:center; gap:12px; margin-bottom:8px; border-bottom:2px solid #e0c3a0; padding-bottom:6px; }
+            .logo-top-left img { max-height:180px; max-width:180px; object-fit:contain; }
+            .office-name-large { font-size:24px; font-weight:800; color:#1a4a6f; }
+            .office-address, .office-phone { font-size:12px; color:#4a5568; }
+            .serial-number { text-align:right; font-size:11px; font-weight:bold; color:#c6904a; margin-bottom:5px; }
+            .info-box { border:1px solid #e2c3a0; margin-bottom:8px; border-radius:6px; overflow:hidden; }
+            .box-title-print { background:#d4a574; padding:4px 10px; font-weight:700; font-size:11px; color:white; }
+            .box-content { padding:6px; }
+            .info-row { display:flex; margin-bottom:4px; font-size:13px; }
+            .info-label { width:140px; font-weight:700; font-size:13px; }
+            .info-value { flex:1; border-bottom:0.5px dotted #ddd; padding-left:5px; font-size:13px; }
+            .print-sign { display:flex; justify-content:flex-end; margin-top:10px; }
+            .sign-line { width:150px; text-align:center; border-top:1px solid #333; padding-top:4px; font-size:9px; }
+            .cut-line { text-align:center; border-top:1.5px dashed #b8772e; margin:5px 0; }
+            @media print { @page { size: A4; margin: 0.2cm; } body { margin:0; } }
+        </style></head><body><div class="a4-page">
+            <div class="copy-section"><div class="copy-label-right">📘 CUSTOMER COPY</div>
+                <div class="serial-number">${p.serialNumber}</div>
+                <div class="logo-top-left">${logoHtml}<div><div class="office-name-large">NOOR TRAVELS & TOURISM</div><div class="office-address">📍 Bangali Market Mirbat, Sultanate of Oman</div><div class="office-phone">📞 +968 99083850</div></div></div>
+                <div class="info-box"><div class="box-title-print">PASSPORT APPLICATION DETAILS</div><div class="box-content">
+                    <div class="info-row"><div class="info-label">Application Date:</div><div class="info-value">${p.date}</div></div>
+                    <div class="info-row"><div class="info-label">Bill Amount:</div><div class="info-value">${p.bill} OMR</div></div>
+                    <div class="info-row"><div class="info-label">Passport Number:</div><div class="info-value">${escape(p.passportNo)}</div></div>
+                    <div class="info-row"><div class="info-label">Oman Number:</div><div class="info-value">${escape(p.oman)}</div></div>
+                    <div class="info-row"><div class="info-label">Bangladesh Number:</div><div class="info-value">${escape(p.bd)}</div></div>
+                    <div class="info-row"><div class="info-label">Notes:</div><div class="info-value">${escape(p.notes)}</div></div>
+                </div></div>
+                <div class="print-sign"><div class="sign-line">Signature</div></div>
+                <div style="text-align:center; font-size:8px;">Print: ${now}</div>
+            </div>
+            <div class="cut-line"></div>
+            <div class="copy-section"><div class="copy-label-right">🏢 OFFICE COPY</div>
+                <div class="serial-number">${p.serialNumber}</div>
+                <div class="info-box"><div class="box-title-print">PASSPORT APPLICATION - OFFICE RECORD</div><div class="box-content">
+                    <div class="info-row"><div class="info-label">Application Date:</div><div class="info-value">${p.date}</div></div>
+                    <div class="info-row"><div class="info-label">Bill Amount:</div><div class="info-value">${p.bill} OMR</div></div>
+                    <div class="info-row"><div class="info-label">Passport Number:</div><div class="info-value">${escape(p.passportNo)}</div></div>
+                    <div class="info-row"><div class="info-label">Oman Number:</div><div class="info-value">${escape(p.oman)}</div></div>
+                    <div class="info-row"><div class="info-label">Bangladesh Number:</div><div class="info-value">${escape(p.bd)}</div></div>
+                    <div class="info-row"><div class="info-label">Notes:</div><div class="info-value">${escape(p.notes)}</div></div>
+                </div></div>
+                <div class="print-sign"><div class="sign-line">Staff Signature</div></div>
+            </div>
+        </div></body></html>`;
+        let win = window.open('','_blank'); win.document.write(html); win.document.close(); win.print();
+    }
+    
+    function escape(str) {
+        if (!str) return '';
+        return String(str).replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+    
+    let today = new Date().toISOString().split('T')[0];
+    document.getElementById('tBookDate').value = today;
+    document.getElementById('tFlightDate').value = today;
+    document.getElementById('pDate').value = today;
+    
+    renderTickets(tickets);
+    renderPassports();
+</script>
+</body>
+</html>
